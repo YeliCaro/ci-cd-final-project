@@ -1,0 +1,34 @@
+name: Flujo de trabajo de CI
+
+on:
+  push:
+    branches:
+      - main # o la rama principal que es
+tés usando (ej. master)
+  pull_request:
+    branches:
+      - main # o la rama principal
+
+jobs:
+  build: # Puedes nombrar este trabajo como quieras, ej. "build", "ci", "test"
+    runs-on: ubuntu-latest
+    container: python:3.9-slim # Especifica el contenedor Docker
+
+    steps:
+      - name: Checkout # Nombre del paso de checkout
+        uses: actions/checkout@v4 # Usar la versión más reciente o la v3 como se indica
+
+      - name: Instalar dependencias # Nombre del paso de instalación
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+
+
+         - name: Ejecutar pruebas unitarias con nose # Este es el nombre del paso
+           run: |
+           pip install nose coverage
+           nosetests -v --with-spec --spec-color --with-coverage --cover-package=app
+
+
+
